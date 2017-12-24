@@ -1,0 +1,15 @@
+version: '{build}'
+image: Visual Studio 2017
+platform:
+  - Win32
+  - x64
+configuration:
+  - Debug
+  - Release
+build:
+  parallel: true
+  project: AvsDec.sln
+  verbosity: minimal
+artifacts:
+  - path: bin\$(configuration)\$(platform)\AvsDec.exe
+    name: AvsDec-$(platform)-$(configuration)-build$(appveyor_build_version)
