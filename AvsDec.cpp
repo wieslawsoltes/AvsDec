@@ -1,4 +1,5 @@
-﻿#define WIN32_LEAN_AND_MEAN
+﻿#define VERSION _T("1.0")
+#define WIN32_LEAN_AND_MEAN
 #include "targetver.h"
 #include <windows.h>
 #include <stdio.h>
@@ -7,9 +8,10 @@
 
 int main(int argc, char *argv[])
 {
+    _ftprintf(stderr, _T("AvsDec v%s - Decode avisynth audio stream to raw audio file.\n"), VERSION);
+
     if (argc != 3)
     {
-        _ftprintf(stderr, _T("AvsDec - Decode avisynth audio stream to raw audio file."));
         _ftprintf(stderr, _T("Usage: AvsDec <input.avs> <output.raw>"));
         return -1;
     }
