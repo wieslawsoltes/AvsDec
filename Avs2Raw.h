@@ -28,49 +28,46 @@ typedef struct TAvs2RawStatus
 
 class CAvs2Raw
 {
-public:
-    CAvs2Raw()
-    {
-        this->bHaveDLL = false;
-        hAvisynthDLL = nullptr;
-        _szAvsFileName = nullptr;
-        memset(&this->info, 0, sizeof(AvsAudioInfo));
-        CreateEnv = nullptr;
-        env = nullptr;
-        Video = nullptr;
-    }
-    virtual ~CAvs2Raw()
-    {
-        this->CloseAvisynth();
-    }
 private:
-    HINSTANCE hAvisynthDLL;
+    bool bHaveAvisynth;
+    HINSTANCE hAvisynth;
     IScriptEnvironment* (__stdcall *CreateEnv) (int);
     IScriptEnvironment *env;
     PClip *Video;
-private:
     AvsAudioInfo info;
-    const char *_szAvsFileName;
-    bool bHaveDLL;
+public:
+    CAvs2Raw()
+    {
+        Reset();
+    }
+    virtual ~CAvs2Raw()
+    {
+        CloseAvisynth();
+    }
+private:
+    void Reset()
+    {
+        bHaveAvisynth = false;
+        hAvisynth = nullptr;
+        CreateEnv = nullptr;
+        env = nullptr;
+        Video = nullptr;
+        memset(&info, 0, sizeof(AvsAudioInfo));
+    }
 public:
     bool OpenAvisynth(const char *szAvsFileName)
     {
-        if (this->bHaveDLL == true)
-        {
-            this->CloseAvisynth();
-        }
+        if (bHaveAvisynth == true)
+            CloseAvisynth();
 
-        _szAvsFileName = szAvsFileName;
-
-        hAvisynthDLL = LoadLibrary(_T("avisynth"));
-        if (!hAvisynthDLL)
+        hAvisynth = LoadLibrary(_T("avisynth"));
+        if (!hAvisynth)
         {
             OutputDebugString(_T("Avisynth Error: Could not load avisynth.dll!"));
             return false;
         }
 
-        CreateEnv = (IScriptEnvironment *(__stdcall *)(int)) GetProcAddress(hAvisynthDLL,
-            "CreateScriptEnvironment");
+        CreateEnv = (IScriptEnvironment *(__stdcall *)(int)) GetProcAddress(hAvisynth, "CreateScriptEnvironment");
         if (!CreateEnv)
         {
             OutputDebugString(_T("Avisynth Error: Could not access CreateScriptEnvironment!"));
@@ -94,8 +91,8 @@ public:
                 if (!(*Video))
                 {
                     delete Video;
-                    delete env;
                     Video = nullptr;
+                    delete env;
                     env = nullptr;
                     return false;
                 }
@@ -131,23 +128,23 @@ public:
                 *Video = env->Invoke("ConvertAudioToFloat", AVSValue(args_conv, 1)).AsClip();
             }
 
-            this->info.nAudioChannels = (*Video)->GetVideoInfo().AudioChannels();
-            this->info.nAudioSamples = (*Video)->GetVideoInfo().num_audio_samples;
-            this->info.nBytesPerChannelSample = (*Video)->GetVideoInfo().BytesPerChannelSample();
-            this->info.nSamplesPerSecond = (*Video)->GetVideoInfo().SamplesPerSecond();
-            this->info.nSampleType = (*Video)->GetVideoInfo().SampleType();
+            info.nAudioChannels = (*Video)->GetVideoInfo().AudioChannels();
+            info.nAudioSamples = (*Video)->GetVideoInfo().num_audio_samples;
+            info.nBytesPerChannelSample = (*Video)->GetVideoInfo().BytesPerChannelSample();
+            info.nSamplesPerSecond = (*Video)->GetVideoInfo().SamplesPerSecond();
+            info.nSampleType = (*Video)->GetVideoInfo().SampleType();
 
-            this->bHaveDLL = true;
+            bHaveAvisynth = true;
             return true;
         }
         else
         {
             OutputDebugString(_T("Avisynth Error: No audio stream!"));
             delete Video;
-            delete env;
             Video = nullptr;
+            delete env;
             env = nullptr;
-            this->bHaveDLL = true;
+            bHaveAvisynth = true;
             return false;
         }
     }
@@ -167,22 +164,16 @@ public:
                 env = nullptr;
             }
 
-            if (hAvisynthDLL)
-                FreeLibrary(hAvisynthDLL);
+            if (hAvisynth)
+                FreeLibrary(hAvisynth);
 
-            this->bHaveDLL = false;
-            hAvisynthDLL = nullptr;
-            _szAvsFileName = nullptr;
-            memset(&this->info, 0, sizeof(AvsAudioInfo));
-            CreateEnv = nullptr;
-            env = nullptr;
-            Video = nullptr;
+            Reset();
         }
         catch (...)
         {
             OutputDebugString(_T("Avisynth Error: Failed to close Avs2Raw!"));
+            return false;
         }
-
         return true;
     }
     AvsAudioInfo GetInputInfo()
