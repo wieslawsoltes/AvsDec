@@ -5,8 +5,55 @@
 #include <stdio.h>
 #include <tchar.h>
 #include "Avs2Raw.h"
+#include "WavFile.h"
 
-int main(int argc, char *argv[])
+int WavInfo(int argc, char *argv[])
+{
+    FILE *log = stdout;
+
+    _ftprintf(log, _T("WavInfo v%s - Show wav file header info.\n"), VERSION);
+
+    if (argc != 2)
+    {
+        _ftprintf(log, _T("Usage: WavInfo <input.wav>"));
+        return -1;
+    }
+
+    char *wavFilePath = argv[1];
+
+    try
+    {
+        FILE *fstream;
+        errno_t error = fopen_s(&fstream, wavFilePath, "rb");
+        if (error != 0)
+        {
+            _ftprintf(log, _T("Failed to open wav file."));
+            return -1;
+        }
+
+        _ftprintf(log, _T("File:\t\t%hs\n"), wavFilePath);
+
+        WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
+        h->Print(log);
+
+        fclose(fstream);
+        delete h;
+    }
+    catch (TCHAR *error)
+    {
+        _ftprintf(log, _T("Failed to read file header: %s"), error);
+        return -1;
+    }
+    catch (...)
+    {
+        _ftprintf(log, _T("Failed to read file header."));
+        return -1;
+    }
+
+    return 0;
+}
+
+int AvsDec(int argc, char *argv[])
 {
     FILE *log = stderr;
     FILE *pipe = stdout;
@@ -89,7 +136,6 @@ int main(int argc, char *argv[])
         }
     }
 
-
     int nr;
     ULONGLONG nDecodedSamples = 0;
     do
@@ -110,4 +156,10 @@ int main(int argc, char *argv[])
     decoderAVS.CloseAvisynth();
 
     return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    //return WavInfo(argc, argv);
+    return AvsDec(argc, argv);
 }
