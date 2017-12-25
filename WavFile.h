@@ -65,11 +65,11 @@ enum WavChannelMask
     SPEAKER_TOP_BACK_RIGHT = 0x20000
 };
 
-/// WAV channel information.
+// WAV channel information.
 class WavChannel
 {
 public:
-    /// Wav channel long name.
+    // Wav channel long name.
     const char * LongName;
     // Wav channel short name.
     const char * ShortName;
@@ -90,7 +90,7 @@ public:
     }
 };
 
-/// The canonical WAVE format starts with the RIFF header.
+// The canonical WAVE format starts with the RIFF header.
 class WavFileHeader
 {
 public:
