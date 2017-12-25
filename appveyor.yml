@@ -4,12 +4,11 @@ platform:
   - Win32
   - x64
 configuration:
-  - Debug
   - Release
 build:
   parallel: true
   project: AvsDec.sln
   verbosity: minimal
 artifacts:
-  - path: bin\$(configuration)\$(platform)\AvsDec.exe
+  - path: bin\$(configuration)\$(platform)
     name: AvsDec-$(platform)-$(configuration)-build$(appveyor_build_version)
