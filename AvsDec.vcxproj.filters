@@ -39,6 +39,9 @@
     <ClInclude Include="Avs2Raw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WavFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvsDec.cpp">
