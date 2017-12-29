@@ -42,9 +42,21 @@
     <ClInclude Include="WavFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AvsDec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WavInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvsDec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WavInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -189,11 +189,15 @@
     <ClInclude Include="avisynth\src\core\avisynth.h" />
     <ClInclude Include="avisynth\src\internal.h" />
     <ClInclude Include="Avs2Raw.h" />
+    <ClInclude Include="AvsDec.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WavFile.h" />
+    <ClInclude Include="WavInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvsDec.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="WavInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

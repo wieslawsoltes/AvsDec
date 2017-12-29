@@ -304,7 +304,7 @@ WavChannel WavFileHeader::WavMultiChannelTypes[] = {
 };
 
 // 00000001-0000-0010-8000-00aa00389b71
-GUID WavFileHeader::SubTypePCM        = { 0x00000001, 0x0000, 0x0010, { 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71 } };
+GUID WavFileHeader::SubTypePCM = { 0x00000001, 0x0000, 0x0010, { 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71 } };
 
 // 00000003-0000-0010-8000-00aa00389b71
 GUID WavFileHeader::SubTypeIEEE_FLOAT = { 0x00000003, 0x0000, 0x0010, { 0x80, 0x00, 0x00, 0xaa, 0x00, 0x38, 0x9b, 0x71 } };
@@ -421,8 +421,8 @@ public:
                         h->HeaderSize += 4;
 
                         // char chunkName[4] = chunk;
-                        byte *chunkData = new byte[chunkSize];
-                        fread(chunkData, sizeof(byte), chunkSize, fs);
+                        unsigned char *chunkData = new unsigned char[chunkSize];
+                        fread(chunkData, sizeof(unsigned char), chunkSize, fs);
                         delete chunkData;
 
                         h->HeaderSize += (int)chunkSize;
