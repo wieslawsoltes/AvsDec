@@ -7,7 +7,11 @@ Decode avisynth audio stream to raw audio file
 ## Usage
 
 ```
-AvsDec <input.avs> <output.raw>
+usage: AvsDec [option] <...>
+option: [-i] Show wav file header info
+        AvsDec -i <input.wav>
+        [-d] Decode avisynth audio stream to raw audio file
+        AvsDec -d <input.avs> <output.raw>
 ```
 
 ## License
