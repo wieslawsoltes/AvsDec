@@ -7,19 +7,9 @@
 #include "Avs2Raw.h"
 #include "WavFile.h"
 
-int WavInfo(int argc, char *argv[])
+int WavInfo(char *wavFilePath)
 {
     FILE *log = stdout;
-
-    _ftprintf(log, _T("WavInfo v%s - Show wav file header info.\n"), VERSION);
-
-    if (argc != 2)
-    {
-        _ftprintf(log, _T("Usage: WavInfo <input.wav>"));
-        return -1;
-    }
-
-    char *wavFilePath = argv[1];
 
     try
     {
@@ -53,21 +43,10 @@ int WavInfo(int argc, char *argv[])
     return 0;
 }
 
-int AvsDec(int argc, char *argv[])
+int AvsDec(char *avsFilePath, char *rawFilePath)
 {
     FILE *log = stderr;
     FILE *pipe = stdout;
-
-    _ftprintf(log, _T("AvsDec v%s - Decode avisynth audio stream to raw audio file.\n"), VERSION);
-
-    if (argc != 3)
-    {
-        _ftprintf(log, _T("Usage: AvsDec <input.avs> <output.raw>"));
-        return -1;
-    }
-
-    char *avsFilePath = argv[1];
-    char *rawFilePath = argv[2];
 
     bool isOutputPipe = (strlen(rawFilePath) == 1) && (rawFilePath[0] == '-');
 
@@ -158,8 +137,47 @@ int AvsDec(int argc, char *argv[])
     return 0;
 }
 
+void Help(FILE *log)
+{
+    _ftprintf(log, _T("usage: AvsDec [option] <...>\n"));
+    _ftprintf(log, _T("option:"));
+    _ftprintf(log, _T("\t[-i] Show wav file header info\n"));
+    _ftprintf(log, _T("\tAvsDec -i <input.wav>\n"));
+    _ftprintf(log, _T("\t[-d] Decode avisynth audio stream to raw audio file\n"));
+    _ftprintf(log, _T("\tAvsDec -d <input.avs> <output.raw>\n"));
+}
+
 int main(int argc, char *argv[])
 {
-    //return WavInfo(argc, argv);
-    return AvsDec(argc, argv);
+    _ftprintf(stderr, _T("AvsDec v%s\n"), VERSION);
+
+    if (argc != 3 && argc != 4)
+    {
+        Help(stderr);
+        return -1;
+    }
+
+    char *option = argv[1];
+    int lenOption = strlen(option);
+    if (lenOption != 2)
+    {
+        Help(stderr);
+        return -1;
+    }
+
+    if (strncmp(option, "-i", 2) == 0 && argc == 3)
+    {
+        char *wavFilePath = argv[2];
+        return WavInfo(wavFilePath);
+    }
+
+    if (strncmp(option, "-d", 2) == 0 && argc == 4)
+    {
+        char *avsFilePath = argv[2];
+        char *rawFilePath = argv[3];
+        return AvsDec(avsFilePath, rawFilePath);
+    }
+
+    Help(stderr);
+    return -1;
 }
