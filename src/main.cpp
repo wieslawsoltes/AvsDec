@@ -9,21 +9,53 @@
 #include "WavInfo.h"
 #include "WavSplit.h"
 
+void Info(FILE *log)
+{
+    _ftprintf(log, _T("%s v%s (%s %s %s, %s %s)\n"),
+        _T(PRODUCTNAME),
+        _T(VERSION),
+#if defined(_WIN32) & !defined(_WIN64)
+        _T("x86"),
+#else
+        _T("x64"),
+#endif
+#if defined(UNICODE)
+        _T("Unicode"),
+#else
+        _T("Ansi"),
+#endif
+#if defined(_DEBUG)
+        _T("Debug"),
+#else
+        _T("Release"),
+#endif
+        _T(__DATE__),
+        _T(__TIME__));
+    _ftprintf(log, _T("%s\n"), _T(COPYRIGHT));
+}
+
 void Help(FILE *log)
 {
-    _ftprintf(log, _T("usage: AvsDec [option] <...>\n"));
-    _ftprintf(log, _T("option:"));
+    _ftprintf(log, _T("usage: %s [option] <...>\n"), _T(PRODUCTNAME));
+    _ftprintf(log, _T("option:\n"));
     _ftprintf(log, _T("\t[-d] Decode avisynth audio stream to raw audio file\n"));
-    _ftprintf(log, _T("\tAvsDec -d <input.avs> <output.raw>\n"));
+    _ftprintf(log, _T("\texamples:\n"));
+    _ftprintf(log, _T("\t%s -d <input.avs> <output.raw>\n"), _T(PRODUCTNAME));
+    _ftprintf(log, _T("\t%s -d <input.avs> - > <output.raw>\n"), _T(PRODUCTNAME));
+    _ftprintf(log, _T("\n"));
     _ftprintf(log, _T("\t[-i] Show wav file header info\n"));
-    _ftprintf(log, _T("\tAvsDec -i <input.wav>\n"));
+    _ftprintf(log, _T("\texamples:\n"));
+    _ftprintf(log, _T("\t%s -i <input.wav>\n"), _T(PRODUCTNAME));
+    _ftprintf(log, _T("\n"));
     _ftprintf(log, _T("\t[-s] Split multi-channel WAV file into single channel WAV files\n"));
-    _ftprintf(log, _T("\tAvsDec -s <input.wav> [<OutputPath>]\n"));
+    _ftprintf(log, _T("\texamples:\n"));
+    _ftprintf(log, _T("\t%s -s <input.wav> [<OutputPath>]\n"), _T(PRODUCTNAME));
+    _ftprintf(log, _T("\t%s -s - [<OutputPath>] < <input.wav>\n"), _T(PRODUCTNAME));
 }
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    _ftprintf(stderr, _T("AvsDec v%s\n"), _T(VERSION));
+    Info(stderr);
 
     if (argc != 3 && argc != 4)
     {
@@ -57,26 +89,50 @@ int _tmain(int argc, _TCHAR* argv[])
         if (argc == 3)
         {
             _TCHAR *wavFilePath = argv[2];
-            _TCHAR drive[_MAX_DRIVE];
-            _TCHAR dir[_MAX_DIR];
-            _TCHAR fname[_MAX_FNAME];
-            _TCHAR ext[_MAX_EXT];
-            _TCHAR outputPath[_MAX_PATH];
-            _TCHAR fullwavFilePath[_MAX_PATH];
-            _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
-            _tsplitpath_s(fullwavFilePath, drive, dir, fname, ext);
-            _tmakepath_s(outputPath, drive, dir, nullptr, nullptr);
-            return WavSplit(fullwavFilePath, outputPath);
+            bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
+
+            if (isInputPipe == false)
+            {
+                _TCHAR drive[_MAX_DRIVE];
+                _TCHAR dir[_MAX_DIR];
+                _TCHAR fname[_MAX_FNAME];
+                _TCHAR ext[_MAX_EXT];
+                _TCHAR outputPath[_MAX_PATH];
+                _TCHAR fullwavFilePath[_MAX_PATH];
+                _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
+                _tsplitpath_s(fullwavFilePath, drive, dir, fname, ext);
+                _tmakepath_s(outputPath, drive, dir, nullptr, nullptr);
+
+                return WavSplit(fullwavFilePath, outputPath);
+            }
+            else
+            {
+                return WavSplit(wavFilePath, _T(""));
+            }
         }
         else
         {
             _TCHAR *wavFilePath = argv[2];
-            _TCHAR *outputPath = argv[3];
-            _TCHAR fullwavFilePath[_MAX_PATH];
-            _TCHAR fullOutputPath[_MAX_PATH];
-            _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
-            _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
-            return WavSplit(fullwavFilePath, fullOutputPath);
+            bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
+
+            if (isInputPipe == false)
+            {
+                _TCHAR *outputPath = argv[3];
+                _TCHAR fullwavFilePath[_MAX_PATH];
+                _TCHAR fullOutputPath[_MAX_PATH];
+                _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
+                _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
+
+                return WavSplit(fullwavFilePath, fullOutputPath);
+            }
+            else
+            {
+                _TCHAR *outputPath = argv[3];
+                _TCHAR fullOutputPath[_MAX_PATH];
+                _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
+
+                return WavSplit(wavFilePath, fullOutputPath);
+            }
         }
     }
 

@@ -7,7 +7,7 @@
 #include <Guiddef.h>
 
 // Multi-channel WAV file mask.
-enum WavChannelMask
+enum WavChannelMask : unsigned int
 {
     NONE = 0x0,
     // Speaker front left channel mask.

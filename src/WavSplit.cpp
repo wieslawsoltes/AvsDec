@@ -4,6 +4,8 @@
 #include <stdlib.h> 
 #include <stdio.h>
 #include <tchar.h>
+#include <fcntl.h>
+#include <io.h>
 #include "WavFile.h"
 
 __int64 GetFileSize(FILE *fp)
@@ -18,29 +20,46 @@ __int64 GetFileSize(FILE *fp)
 
 int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 {
+    int nResult = -1;
     FILE *log = stdout;
+    FILE *pipe = stdin;
+
+    bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
 
     try
     {
         FILE *fstream;
-        errno_t error = _tfopen_s(&fstream, wavFilePath, _T("rb"));
-        if (error != 0)
+
+        if (isInputPipe == true)
         {
-            _ftprintf(log, _T("Failed to open wav file."));
-            return -1;
+            fstream = pipe;
+            _setmode(_fileno(pipe), O_BINARY);
+        }
+        else
+        {
+            errno_t error = _tfopen_s(&fstream, wavFilePath, _T("rb"));
+            if (error != 0)
+            {
+                _ftprintf(log, _T("Failed to open wav file."));
+                return -1;
+            }
         }
 
-        __int64 nFileSize = GetFileSize(fstream);
+        __int64 nFileSize = 0;
 
-        _ftprintf(log, _T("File:\t\t%s\n"), wavFilePath);
-        _ftprintf(log, _T("File size:\t%I64d\n"), nFileSize);
+        if (isInputPipe == false)
+        {
+            _ftprintf(log, _T("File:\t\t%s\n"), wavFilePath);
+            nFileSize = GetFileSize(fstream);
+            _ftprintf(log, _T("File size:\t%I64d\n"), nFileSize);
+        }
  
         WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
         h->Print(log);
         _ftprintf(log, _T("\n"));
 
         int nProgress = 0;
-        long countBytes = 0;
+        __int64 countBytes = 0;
 
         countBytes += h->HeaderSize;
 
@@ -56,7 +75,9 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         _TCHAR inputDir[_MAX_DIR];
         _TCHAR inputName[_MAX_FNAME];
         _TCHAR inputExt[_MAX_EXT];
-        _tsplitpath_s(wavFilePath, inputDrive, inputDir, inputName, inputExt);
+
+        if (isInputPipe == false)
+            _tsplitpath_s(wavFilePath, inputDrive, inputDir, inputName, inputExt);
 
         _TCHAR** channelLongNames;
         channelLongNames = new _TCHAR*[h->NumChannels];
@@ -83,8 +104,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             for (int c = 0; c < WavFileHeader::nWavMultiChannelTypes; c++)
             {
                 WavChannel &ch = WavFileHeader::WavMultiChannelTypes[c];
-
-                if (((unsigned int)ch.Mask & h->ChannelMask) != 0)
+                if ((ch.Mask & h->ChannelMask) != 0)
                 {
                     channels[countChannels++] = ch;
                 }
@@ -96,10 +116,20 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         for (int p = 0; p < h->NumChannels; p++)
         {
-            _stprintf_s(fileNameBuffer, _MAX_FNAME, _T("%s.%s\0"), inputName, channels[p].ShortName);
-            _tmakepath_s(outputFileNameNuffer, nullptr, outputPath, fileNameBuffer, inputExt);
-            _stprintf_s(outputFileNames[p], _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
-            _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p]);
+            if (isInputPipe == true)
+            {
+                _stprintf_s(fileNameBuffer, _MAX_FNAME, _T("%s\0"), channels[p].ShortName);
+                _tmakepath_s(outputFileNameNuffer, nullptr, outputPath, fileNameBuffer, _T("wav"));
+                _stprintf_s(outputFileNames[p], _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
+                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p]);
+            }
+            else
+            {
+                _stprintf_s(fileNameBuffer, _MAX_FNAME, _T("%s.%s\0"), inputName, channels[p].ShortName);
+                _tmakepath_s(outputFileNameNuffer, nullptr, outputPath, fileNameBuffer, inputExt);
+                _stprintf_s(outputFileNames[p], _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
+                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p]);
+            }
         }
 
         uint32_t dataSize = h->Subchunk2Size;
@@ -122,12 +152,9 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             errno_t error = _tfopen_s(&outputFiles[c], outputFileNames[c], _T("wb"));
             if (error != 0)
             {
-                // TODO: Clean-up allocated memory.
-
-                // TODO: Close open files.
-
                 _ftprintf(log, _T("Failed to create output file."));
-                return -1;
+                nResult = -1;
+                goto cleanup;
             }
         }
 
@@ -164,16 +191,20 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
                 countBytes += n;
 
-                nProgress = (int)(((countBytes / nFileSize) * 100.0));
-                __int64 nCurPos = _ftelli64(fstream);
-                _ftprintf(log, _T("\rProgress: %d%% (%I64d/%I64d)"), nProgress, nCurPos, nFileSize);
+                if (isInputPipe == false)
+                {
+                    nProgress = (int)(((countBytes / nFileSize) * 100.0));
+                    __int64 nCurPos = _ftelli64(fstream);
+                    _ftprintf(log, _T("\rProgress: %d%% (%I64d/%I64d)"), nProgress, nCurPos, nFileSize);
+                }
             }
         }
 
+        nResult = 0;
+
         delete[] count;
 
-        // clean-up
-
+cleanup:
         for (int i = 0; i < h->NumChannels; ++i)
             delete[] outputFileNames[i];
         delete[] outputFileNames;
@@ -204,20 +235,21 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         delete mh;
 
-        fclose(fstream);
+        if (isInputPipe == false)
+            fclose(fstream);
 
         delete h;
     }
     catch (TCHAR *error)
     {
         _ftprintf(log, _T("Failed to split file: %s"), error);
-        return -1;
+        nResult = -1;
     }
     catch (...)
     {
         _ftprintf(log, _T("Failed to split file."));
-        return -1;
+        nResult = -1;
     }
 
-    return 0;
+    return nResult;
 }
