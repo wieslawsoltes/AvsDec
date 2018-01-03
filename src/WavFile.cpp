@@ -17,13 +17,13 @@ WavChannel::~WavChannel()
 {
 }
 
-WavChannel WavFileHeader::WavChannelTypes[] = {
+WavChannel WavFileHeader::WavChannelTypes[WavFileHeader::nWavChannelTypes] = {
     { "Mono",                    "M",   WavChannelMask::NONE },
     { "Left",                    "L",   WavChannelMask::NONE },
     { "Right",                   "R",   WavChannelMask::NONE }
 };
 
-WavChannel WavFileHeader::WavMultiChannelTypes[] = {
+WavChannel WavFileHeader::WavMultiChannelTypes[WavFileHeader::nWavMultiChannelTypes] = {
     { "Front Left",              "FL",   WavChannelMask::SPEAKER_FRONT_LEFT               },
     { "Front Right",             "FR",   WavChannelMask::SPEAKER_FRONT_RIGHT              },
     { "Front Center",            "FC",   WavChannelMask::SPEAKER_FRONT_CENTER             },

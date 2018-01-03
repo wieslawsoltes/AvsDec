@@ -117,10 +117,14 @@ public:
     /// Total samples.
     long TotalSamples;
 public:
+    // Number of channel types.
+    const static int nWavChannelTypes = 3;
     // Channel types.
-    static WavChannel WavChannelTypes[];
+    static WavChannel WavChannelTypes[nWavChannelTypes];
+    // Number of multi-channel types.
+    const static int nWavMultiChannelTypes = 18;
     // Multi-channel types.
-    static WavChannel WavMultiChannelTypes[];
+    static WavChannel WavMultiChannelTypes[nWavMultiChannelTypes];
     // WAVEFORMATEXTENSIBLE sub-formats
     // Sub-type PCM.
     static GUID SubTypePCM;
