@@ -1,1 +1,1 @@
-#define VERSION _T("1.1")
+#define VERSION _T("2.0")
