@@ -1,14 +1,9 @@
 version: '{build}'
 image: Visual Studio 2017
-platform:
-  - Win32
-  - x64
-configuration:
-  - Release
-build:
-  parallel: true
-  project: AvsDec.sln
-  verbosity: minimal
+before_build:
+- git submodule update --init
+build_script:
+- ps: .\build.ps1 -Target "Package"
+test: off
 artifacts:
-  - path: src\bin\$(configuration)\$(platform)
-    name: AvsDec-$(platform)-$(configuration)-build$(appveyor_build_version)
+- path: artifacts\*.zip
