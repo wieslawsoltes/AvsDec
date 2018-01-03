@@ -287,7 +287,7 @@ void WavFileInfo::WriteFileHeader(FILE *fs, WavFileHeader *h)
     fwrite(&h->ChunkSize, sizeof(uint32_t), 1, fs);
     fwrite(&h->Format, sizeof(uint32_t), 1, fs); // 0x45564157, "WAVE"
 
-                                                    // fmt
+    // fmt
     fwrite(&h->Subchunk1ID, sizeof(uint32_t), 1, fs); // 0x20746d66, "fmt "
     fwrite(&h->Subchunk1Size, sizeof(uint32_t), 1, fs);
     fwrite(&h->AudioFormat, sizeof(uint16_t), 1, fs);
