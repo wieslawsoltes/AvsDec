@@ -332,7 +332,7 @@ WavFileHeader * WavFileInfo::GetMonoWavFileHeader(WavFileHeader *h)
     mh->ChunkSize = 36 + (h->Subchunk2Size / h->NumChannels); // 36 + SubChunk2Size, 4 + (8 + SubChunk1Size) + (8 + SubChunk2Size)
     mh->Format = (uint32_t)0x45564157; // 0x45564157, "WAVE"
 
-                                        // fmt
+    // fmt
     mh->Subchunk1ID = (uint32_t)0x20746d66; // 0x20746d66, "fmt "
     mh->Subchunk1Size = 16; // 16 for PCM, 40 for WAVEFORMATEXTENSIBLE
     mh->AudioFormat = (uint16_t)1; // PCM = 1, WAVEFORMATEXTENSIBLE.SubFormat = 0xFFFE
@@ -342,7 +342,7 @@ WavFileHeader * WavFileInfo::GetMonoWavFileHeader(WavFileHeader *h)
     mh->BlockAlign = (uint16_t)((1 * h->BitsPerSample) / 8); // NumChannels * BitsPerSample/8
     mh->BitsPerSample = h->BitsPerSample; // 8 bits = 8, 16 bits = 16, etc.
 
-                                            // extensible
+    // extensible
     mh->ExtraParamSize = (uint16_t)0;
     mh->ChannelMask = (uint32_t)0;
     mh->GuidSubFormat = { 0x00000000, 0x0000, 0x0000,{ 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 } };
@@ -351,7 +351,7 @@ WavFileHeader * WavFileInfo::GetMonoWavFileHeader(WavFileHeader *h)
     mh->Subchunk2ID = (uint32_t)0x61746164; // 0x61746164, "data"
     mh->Subchunk2Size = h->Subchunk2Size / h->NumChannels; // NumSamples * NumChannels * BitsPerSample/8
 
-                                                            // info
+    // info
     mh->IsExtensible = false;
     mh->HeaderSize = 44;
     mh->TotalSamples = (long)((double)mh->Subchunk2Size / ((double)mh->NumChannels * (double)mh->BitsPerSample / 8));
