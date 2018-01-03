@@ -35,7 +35,6 @@ AvsDec is an audio files conversion software for decoding avisynth audio streams
 
 ```
 usage: AvsDec [option] <...>
-usage: AvsDec [option] <...>
 option: [-d] Decode avisynth audio stream to raw audio file
         AvsDec -d <input.avs> <output.raw>
         [-i] Show wav file header info
