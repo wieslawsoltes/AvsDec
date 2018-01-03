@@ -122,10 +122,12 @@ public:
 
         if ((*Video)->GetVideoInfo().HasAudio())
         {
-            if ((*Video)->GetVideoInfo().SampleType() != SAMPLE_FLOAT)
+            int nSampleType = (*Video)->GetVideoInfo().SampleType();
+            if (nSampleType != SAMPLE_FLOAT)
             {
                 AVSValue args_conv[1] = { *Video };
                 *Video = env->Invoke("ConvertAudioToFloat", AVSValue(args_conv, 1)).AsClip();
+                OutputDebugString(_T("Avisynth: ConvertAudioToFloat"));
             }
 
             info.nAudioChannels = (*Video)->GetVideoInfo().AudioChannels();
