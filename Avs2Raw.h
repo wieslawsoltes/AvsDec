@@ -9,22 +9,22 @@
 #include "avisynth64\src\internal.h"
 #endif
 
-typedef struct TAvsAudioInfo
+struct AvsAudioInfo
 {
     int nSampleType;
     int nSamplesPerSecond;
     int nAudioChannels;
     __int64 nAudioSamples;
     int nBytesPerChannelSample;
-} AvsAudioInfo, *PAvsAudioInfo;
+};
 
-typedef struct TAvs2RawStatus
+struct Avs2RawStatus
 {
     __int64 nStart;
     __int64 nSamples;
     __int64 nSamplesLeft;
     int nSamplesToRead;
-} Avs2RawStatus, *PAvs2RawStatus;
+};
 
 class CAvs2Raw
 {
