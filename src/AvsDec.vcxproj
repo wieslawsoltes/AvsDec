@@ -23,7 +23,7 @@
     <ProjectGuid>{5689D579-90F0-4F6A-B829-CA954FD94F99}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>AvsDec</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>7.0</WindowsTargetPlatformVersion>
     <ProjectName>AvsDec</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
