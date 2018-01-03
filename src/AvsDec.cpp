@@ -40,7 +40,7 @@ int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
     memset(&infoAVS, 0, sizeof(AvsAudioInfo));
     infoAVS = decoderAVS.GetInputInfo();
 
-    ULONGLONG  nFileSize = infoAVS.nAudioSamples * infoAVS.nBytesPerChannelSample * infoAVS.nAudioChannels;
+    ULONGLONG nFileSize = infoAVS.nAudioSamples * infoAVS.nBytesPerChannelSample * infoAVS.nAudioChannels;
 
     _ftprintf(log, _T("AVS File Properties\n"));
     _ftprintf(log, _T("Sample format\t: "));
