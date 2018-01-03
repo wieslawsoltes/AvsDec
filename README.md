@@ -8,10 +8,13 @@ Decode avisynth audio stream to raw audio file.
 
 ```
 usage: AvsDec [option] <...>
-option: [-i] Show wav file header info
-        AvsDec -i <input.wav>
-        [-d] Decode avisynth audio stream to raw audio file
+usage: AvsDec [option] <...>
+option: [-d] Decode avisynth audio stream to raw audio file
         AvsDec -d <input.avs> <output.raw>
+        [-i] Show wav file header info
+        AvsDec -i <input.wav>
+        [-s] Split multi-channel WAV file into single channel WAV files
+        AvsDec -s <input.wav> [<OutputPath>]
 ```
 
 ## License

@@ -194,12 +194,14 @@
     <ClInclude Include="version.h" />
     <ClInclude Include="WavFile.h" />
     <ClInclude Include="WavInfo.h" />
+    <ClInclude Include="WavSplit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvsDec.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="WavFile.cpp" />
     <ClCompile Include="WavInfo.cpp" />
+    <ClCompile Include="WavSplit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
