@@ -6,7 +6,7 @@
 [![GitHub Release](https://img.shields.io/github/release/wieslawsoltes/avsdec.svg)](https://github.com/wieslawsoltes/avsdec/releases/latest)
 [![Github Releases](https://img.shields.io/github/downloads/wieslawsoltes/avsdec/latest/total.svg)](https://github.com/wieslawsoltes/AvsDec/releases)
 
-Decode avisynth audio stream to raw audio file. Split multi-channel WAV files into single channel WAV files.
+Decode avisynth audio stream to raw audio file and split multi-channel WAV files into single channel WAV files.
 
 ## Download AvsDec
 
