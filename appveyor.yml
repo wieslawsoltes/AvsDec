@@ -10,5 +10,5 @@ build:
   project: AvsDec.sln
   verbosity: minimal
 artifacts:
-  - path: bin\$(configuration)\$(platform)
+  - path: src\bin\$(configuration)\$(platform)
     name: AvsDec-$(platform)-$(configuration)-build$(appveyor_build_version)

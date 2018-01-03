@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvsDec", "AvsDec.vcxproj", "{5689D579-90F0-4F6A-B829-CA954FD94F99}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AvsDec", "src\AvsDec.vcxproj", "{5689D579-90F0-4F6A-B829-CA954FD94F99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
