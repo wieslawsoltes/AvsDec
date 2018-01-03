@@ -53,14 +53,14 @@ class WavChannel
 {
 public:
     // Wav channel long name.
-    const _TCHAR * LongName;
+    _TCHAR * LongName;
     // Wav channel short name.
-    const _TCHAR * ShortName;
+    _TCHAR * ShortName;
     // Wav channel mask.
     WavChannelMask Mask;
 public:
     WavChannel();
-    WavChannel(const _TCHAR * longName, const _TCHAR * shortName, WavChannelMask mask);
+    WavChannel(_TCHAR * longName, _TCHAR * shortName, WavChannelMask mask);
     virtual ~WavChannel();
 };
 
