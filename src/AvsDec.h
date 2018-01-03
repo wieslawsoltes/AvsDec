@@ -1,3 +1,3 @@
 ﻿#pragma once
 
-int AvsDec(char *avsFilePath, char *rawFilePath);
+int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath);

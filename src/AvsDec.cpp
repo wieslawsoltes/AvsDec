@@ -5,19 +5,33 @@
 #include <tchar.h>
 #include "Avs2Raw.h"
 
-int AvsDec(char *avsFilePath, char *rawFilePath)
+int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
 {
     FILE *log = stderr;
     FILE *pipe = stdout;
 
-    bool isOutputPipe = (strlen(rawFilePath) == 1) && (rawFilePath[0] == '-');
+    bool isOutputPipe = (_tcslen(rawFilePath) == 1) && (rawFilePath[0] == '-');
+
+#ifdef UNICODE
+    size_t nBufferSize = MAX_PATH;
+    size_t i;
+    char *avsFilePathBuffer = (char *)malloc(nBufferSize);
+    wcstombs_s(&i, avsFilePathBuffer, nBufferSize, avsFilePath, nBufferSize);
+#else
+    char *avsFilePathBuffer = avsFilePath;
+#endif
 
     CAvs2Raw decoderAVS;
-    if (decoderAVS.OpenAvisynth(avsFilePath) == false)
+    if (decoderAVS.OpenAvisynth(avsFilePathBuffer) == false)
     {
         _ftprintf(log, _T("Failed to initialize Avisynth!"));
         return -1;
     }
+
+#ifdef UNICODE
+    if (avsFilePathBuffer)
+        free(avsFilePathBuffer);
+#endif
 
     _ftprintf(log, _T("Avisynth initialized successfully.\n"));
 
@@ -68,7 +82,7 @@ int AvsDec(char *avsFilePath, char *rawFilePath)
     }
     else
     {
-        errno_t error = fopen_s(&fstream, rawFilePath, "wb");
+        errno_t error = _tfopen_s(&fstream, rawFilePath, _T("wb"));
         if (error != 0)
         {
             _ftprintf(log, _T("Failed to create output file."));

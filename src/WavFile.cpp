@@ -6,7 +6,7 @@ WavChannel::WavChannel()
 {
 }
 
-WavChannel::WavChannel(const char * longName, const char * shortName, WavChannelMask mask)
+WavChannel::WavChannel(const _TCHAR * longName, const _TCHAR * shortName, WavChannelMask mask)
 {
     LongName = longName;
     ShortName = shortName;
@@ -18,30 +18,30 @@ WavChannel::~WavChannel()
 }
 
 WavChannel WavFileHeader::WavChannelTypes[WavFileHeader::nWavChannelTypes] = {
-    { "Mono",                    "M",   WavChannelMask::NONE },
-    { "Left",                    "L",   WavChannelMask::NONE },
-    { "Right",                   "R",   WavChannelMask::NONE }
+    { _T("Mono"),                    _T("M"),   WavChannelMask::NONE },
+    { _T("Left"),                    _T("L"),   WavChannelMask::NONE },
+    { _T("Right"),                   _T("R"),   WavChannelMask::NONE }
 };
 
 WavChannel WavFileHeader::WavMultiChannelTypes[WavFileHeader::nWavMultiChannelTypes] = {
-    { "Front Left",              "FL",   WavChannelMask::SPEAKER_FRONT_LEFT               },
-    { "Front Right",             "FR",   WavChannelMask::SPEAKER_FRONT_RIGHT              },
-    { "Front Center",            "FC",   WavChannelMask::SPEAKER_FRONT_CENTER             },
-    { "Low Frequency",           "LF",   WavChannelMask::SPEAKER_LOW_FREQUENCY            },
-    { "Back Left",               "BL",   WavChannelMask::SPEAKER_BACK_LEFT                },
-    { "Back Right",              "BR",   WavChannelMask::SPEAKER_BACK_RIGHT               },
-    { "Front Left of Center",    "FLC",  WavChannelMask::SPEAKER_FRONT_LEFT_OF_CENTER     },
-    { "Front Right of Center",   "FRC",  WavChannelMask::SPEAKER_FRONT_RIGHT_OF_CENTER    },
-    { "Back Center",             "BC",   WavChannelMask::SPEAKER_BACK_CENTER              },
-    { "Side Left",               "SL",   WavChannelMask::SPEAKER_SIDE_LEFT                },
-    { "Side Right",              "SR",   WavChannelMask::SPEAKER_SIDE_RIGHT               },
-    { "Top Center",              "TC",   WavChannelMask::SPEAKER_TOP_CENTER               },
-    { "Top Front Left",          "TFL",  WavChannelMask::SPEAKER_TOP_FRONT_LEFT           },
-    { "Top Front Center",        "TFC",  WavChannelMask::SPEAKER_TOP_FRONT_CENTER         },
-    { "Top Front Right",         "TFR",  WavChannelMask::SPEAKER_TOP_FRONT_RIGHT          },
-    { "Top Back Left",           "TBL",  WavChannelMask::SPEAKER_TOP_BACK_LEFT            },
-    { "Top Back Center",         "TBC",  WavChannelMask::SPEAKER_TOP_BACK_CENTER          },
-    { "Top Back Right",          "TBR",  WavChannelMask::SPEAKER_TOP_BACK_RIGHT           }
+    { _T("Front Left"),              _T("FL"),   WavChannelMask::SPEAKER_FRONT_LEFT               },
+    { _T("Front Right"),             _T("FR"),   WavChannelMask::SPEAKER_FRONT_RIGHT              },
+    { _T("Front Center"),            _T("FC"),   WavChannelMask::SPEAKER_FRONT_CENTER             },
+    { _T("Low Frequency"),           _T("LF"),   WavChannelMask::SPEAKER_LOW_FREQUENCY            },
+    { _T("Back Left"),               _T("BL"),   WavChannelMask::SPEAKER_BACK_LEFT                },
+    { _T("Back Right"),              _T("BR"),   WavChannelMask::SPEAKER_BACK_RIGHT               },
+    { _T("Front Left of Center"),    _T("FLC"),  WavChannelMask::SPEAKER_FRONT_LEFT_OF_CENTER     },
+    { _T("Front Right of Center"),   _T("FRC"),  WavChannelMask::SPEAKER_FRONT_RIGHT_OF_CENTER    },
+    { _T("Back Center"),             _T("BC"),   WavChannelMask::SPEAKER_BACK_CENTER              },
+    { _T("Side Left"),               _T("SL"),   WavChannelMask::SPEAKER_SIDE_LEFT                },
+    { _T("Side Right"),              _T("SR"),   WavChannelMask::SPEAKER_SIDE_RIGHT               },
+    { _T("Top Center"),              _T("TC"),   WavChannelMask::SPEAKER_TOP_CENTER               },
+    { _T("Top Front Left"),          _T("TFL"),  WavChannelMask::SPEAKER_TOP_FRONT_LEFT           },
+    { _T("Top Front Center"),        _T("TFC"),  WavChannelMask::SPEAKER_TOP_FRONT_CENTER         },
+    { _T("Top Front Right"),         _T("TFR"),  WavChannelMask::SPEAKER_TOP_FRONT_RIGHT          },
+    { _T("Top Back Left"),           _T("TBL"),  WavChannelMask::SPEAKER_TOP_BACK_LEFT            },
+    { _T("Top Back Center"),         _T("TBC"),  WavChannelMask::SPEAKER_TOP_BACK_CENTER          },
+    { _T("Top Back Right"),          _T("TBR"),  WavChannelMask::SPEAKER_TOP_BACK_RIGHT           }
 };
 
 // 00000001-0000-0010-8000-00aa00389b71

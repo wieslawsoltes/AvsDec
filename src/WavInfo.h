@@ -1,3 +1,3 @@
 ﻿#pragma once
 
-int WavInfo(char *wavFilePath);
+int WavInfo(const _TCHAR *wavFilePath);

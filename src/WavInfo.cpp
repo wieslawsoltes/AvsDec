@@ -5,21 +5,21 @@
 #include <tchar.h>
 #include "WavFile.h"
 
-int WavInfo(char *wavFilePath)
+int WavInfo(const _TCHAR *wavFilePath)
 {
     FILE *log = stdout;
 
     try
     {
         FILE *fstream;
-        errno_t error = fopen_s(&fstream, wavFilePath, "rb");
+        errno_t error = _tfopen_s(&fstream, wavFilePath, _T("rb"));
         if (error != 0)
         {
             _ftprintf(log, _T("Failed to open wav file."));
             return -1;
         }
 
-        _ftprintf(log, _T("File:\t\t%hs\n"), wavFilePath);
+        _ftprintf(log, _T("File:\t\t%s\n"), wavFilePath);
 
         WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
         h->Print(log);

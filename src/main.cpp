@@ -17,7 +17,7 @@ void Help(FILE *log)
     _ftprintf(log, _T("\tAvsDec -d <input.avs> <output.raw>\n"));
 }
 
-int main(int argc, char *argv[])
+int _tmain(int argc, _TCHAR* argv[])
 {
     _ftprintf(stderr, _T("AvsDec v%s\n"), VERSION);
 
@@ -27,24 +27,24 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    char *option = argv[1];
-    size_t lenOption = strlen(option);
+    _TCHAR *option = argv[1];
+    size_t lenOption = _tcslen(option);
     if (lenOption != 2)
     {
         Help(stderr);
         return -1;
     }
 
-    if (strncmp(option, "-i", 2) == 0 && argc == 3)
+    if (_tcsnccmp(option, _T("-i"), 2) == 0 && argc == 3)
     {
-        char *wavFilePath = argv[2];
+        _TCHAR *wavFilePath = argv[2];
         return WavInfo(wavFilePath);
     }
 
-    if (strncmp(option, "-d", 2) == 0 && argc == 4)
+    if (_tcsnccmp(option, _T("-d"), 2) == 0 && argc == 4)
     {
-        char *avsFilePath = argv[2];
-        char *rawFilePath = argv[3];
+        _TCHAR *avsFilePath = argv[2];
+        _TCHAR *rawFilePath = argv[3];
         return AvsDec(avsFilePath, rawFilePath);
     }
 
