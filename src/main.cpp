@@ -23,7 +23,7 @@ void Help(FILE *log)
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    _ftprintf(stderr, _T("AvsDec v%s\n"), VERSION);
+    _ftprintf(stderr, _T("AvsDec v%s\n"), _T(VERSION));
 
     if (argc != 3 && argc != 4)
     {
