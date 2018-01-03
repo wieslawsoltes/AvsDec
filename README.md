@@ -2,9 +2,9 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/pe1bbn8xigcygoi3/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/avsdec/branch/master)
 
-[![Github All Releases](https://img.shields.io/github/downloads/wieslawsoltes/batchencoder/total.svg)](https://github.com/wieslawsoltes/BatchEncoder/releases)
-[![GitHub Release](https://img.shields.io/github/release/wieslawsoltes/batchencoder.svg)](https://github.com/wieslawsoltes/batchencoder/releases/latest)
-[![Github Releases](https://img.shields.io/github/downloads/wieslawsoltes/batchencoder/latest/total.svg)](https://github.com/wieslawsoltes/BatchEncoder/releases)
+[![Github All Releases](https://img.shields.io/github/downloads/wieslawsoltes/avsdec/total.svg)](https://github.com/wieslawsoltes/AvsDec/releases)
+[![GitHub Release](https://img.shields.io/github/release/wieslawsoltes/avsdec.svg)](https://github.com/wieslawsoltes/avsdec/releases/latest)
+[![Github Releases](https://img.shields.io/github/downloads/wieslawsoltes/avsdec/latest/total.svg)](https://github.com/wieslawsoltes/AvsDec/releases)
 
 Decode avisynth audio stream to raw audio file. Split multi-channel WAV files into single channel WAV files.
 
