@@ -12,8 +12,8 @@ Decode avisynth audio stream to raw audio file and split multi-channel WAV files
 
 | Platform              | Type        | Version       | Download                                                                                                                               |
 |-----------------------|-------------|---------------|----------------------------------------------------------------------------------------------------------------------|
-| Windows 32-bit        | Portable    | 1.0           | [AvsDec-1.0-Win32.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/1.0/AvsDec-1.0-Win32.zip)           |
-| Windows 64-bit        | Portable    | 1.0           | [AvsDec-1.0-x64.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/1.0/AvsDec-1.0-x64.zip)               |
+| Windows 32-bit        | Portable    | 2.0           | [AvsDec-2.0-Win32.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.0/AvsDec-2.0-Win32.zip)           |
+| Windows 64-bit        | Portable    | 2.0           | [AvsDec-2.0-x64.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.0/AvsDec-2.0-x64.zip)               |
 
 ## System requirements
 
