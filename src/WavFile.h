@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <cstdint>
+#include <stdlib.h> 
 #include <stdio.h>
 #include <tchar.h>
 #include <Guiddef.h>
