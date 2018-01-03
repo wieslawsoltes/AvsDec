@@ -88,7 +88,6 @@ int AvsDec(char *avsFilePath, char *rawFilePath)
 
         int nProgress = (int)((100 * nDecodedSamples * infoAVS.nBytesPerChannelSample * infoAVS.nAudioChannels) / nFileSize);
         _ftprintf(log, _T("\rProgress: %d%% (%I64d/%I64d)"), nProgress, statusAVS.nSamples - statusAVS.nSamplesLeft, statusAVS.nSamples);
-
     } while (nr > 0);
 
     if (isOutputPipe == false)
