@@ -1,6 +1,5 @@
 ﻿#include "WavSplit.h"
 #include <memory>
-
 using namespace std;
 
 __int64 GetFileSize(FILE *fp)
