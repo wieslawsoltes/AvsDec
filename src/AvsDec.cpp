@@ -52,6 +52,11 @@ int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
     _ftprintf(log, _T("%s\t: %I64d\n"), _T("Audio samples"), infoAVS.nAudioSamples);
     _ftprintf(log, _T("%s\t: %I64d\n"), _T("Decoded size"), nFileSize);
 
+    if (isOutputPipe == false)
+    {
+        _ftprintf(log, _T("File:\t\t%s\n"), rawFilePath);
+    }
+
     int nSamples = 1536;
     Avs2RawStatus statusAVS;
     statusAVS.nStart = 0;
