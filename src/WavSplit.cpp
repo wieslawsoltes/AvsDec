@@ -12,8 +12,7 @@ __int64 GetFileSize(FILE *fp)
 
 int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 {
-    int nResult = -1;
-    FILE *log = stdout;
+    FILE *log = stderr;
     FILE *pipe = stdin;
 
     bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
