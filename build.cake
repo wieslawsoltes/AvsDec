@@ -17,7 +17,7 @@ var target = Argument("target", "Default");
 ///////////////////////////////////////////////////////////////////////////////
 
 var platforms = new [] { "Win32", "x64" }.ToList();
-var configurations = new [] { "Release" }.ToList();
+var configurations = new [] { "ReleaseMBCS", "ReleaseUNICODE" }.ToList();
 var solution = "./AvsDec.sln";
 var versionHeaderPath = (FilePath)File("./src/version.h");
 var artifactsDir = (DirectoryPath)Directory("./artifacts");
@@ -69,7 +69,7 @@ var buildSolutionAction = new Action<string,string,string> ((solution, configura
 var packageBinariesAction = new Action<string,string> ((configuration, platform) => 
 {
     var path = "./src/bin/" + configuration + "/" + platform + "/";
-    var output = "AvsDec-" + version + suffix + "-" + platform + (configuration == "Release" ? "" : ("-(" + configuration + ")"));
+    var output = "AvsDec-" + version + suffix + "-" + platform + (configuration.Contains("Release") ? ("-" + configuration.Replace("Release", "")) : ("-" + configuration));
     var outputDir = artifactsDir.Combine(output);
     var outputZip = artifactsDir.CombineWithFilePath(output + ".zip");
     var exeFile = File(path + "AvsDec.exe");
