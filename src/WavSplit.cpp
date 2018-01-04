@@ -138,7 +138,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         auto outputFiles = make_unique<FILE*[]>(h->NumChannels);
         auto count = make_unique<int[]>(h->NumChannels);
 
-        auto mh = WavFileInfo::GetMonoWavFileHeader(h);
+        auto mh = WavFileInfo::GetMonoWavFileHeader(h.get());
 
         for (int c = 0; c < h->NumChannels; c++)
         {
@@ -153,7 +153,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         for (int c = 0; c < h->NumChannels; c++)
         {
-            WavFileInfo::WriteFileHeader(outputFiles[c], mh);
+            WavFileInfo::WriteFileHeader(outputFiles[c], mh.get());
         }
 
         for (uint32_t i = 0; i < dataSize; i += bufferSize)
@@ -201,12 +201,8 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             fclose(outputFiles[c]);
         }
 
-        delete mh;
-
         if (isInputPipe == false)
             fclose(fstream);
-
-        delete h;
     }
     catch (TCHAR *error)
     {
