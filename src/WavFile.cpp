@@ -150,9 +150,9 @@ int WavFileInfo::fpeek(FILE *fs)
     return c;
 }
 
-WavFileHeader * WavFileInfo::ReadFileHeader(FILE *fs)
+unique_ptr<WavFileHeader> WavFileInfo::ReadFileHeader(FILE *fs)
 {
-    WavFileHeader *h = new WavFileHeader();
+    auto h = make_unique<WavFileHeader>();
 
     h->HeaderSize = 0;
 
@@ -276,7 +276,7 @@ WavFileHeader * WavFileInfo::ReadFileHeader(FILE *fs)
     return h;
 }
 
-void WavFileInfo::WriteFileHeader(FILE *fs, WavFileHeader *h)
+void WavFileInfo::WriteFileHeader(FILE *fs, const WavFileHeader *h)
 {
     // Write WAV header.
 
@@ -320,10 +320,10 @@ void WavFileInfo::WriteFileHeader(FILE *fs, WavFileHeader *h)
     }
 }
 
-WavFileHeader * WavFileInfo::GetMonoWavFileHeader(WavFileHeader *h)
+unique_ptr<WavFileHeader> WavFileInfo::GetMonoWavFileHeader(const WavFileHeader *h)
 {
     // Each mono output file has the same header.
-    WavFileHeader *mh = new WavFileHeader();
+    auto mh = make_unique<WavFileHeader>();
 
     // WAVE
     mh->ChunkID = (uint32_t)0x46464952; // 0x46464952, "RIFF"
