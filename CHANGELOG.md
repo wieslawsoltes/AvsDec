@@ -3,6 +3,7 @@
 ### Version 2.2
 
 - Using unique_ptr for memory management.
+- Made output.raw file path optional.
 
 ### Version 2.1
 

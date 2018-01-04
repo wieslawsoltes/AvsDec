@@ -53,7 +53,7 @@ usage: AvsDec [option] <...>
 option:
         [-d] Decode avisynth audio stream to raw audio file
         examples:
-        AvsDec -d <input.avs> <output.raw>
+        AvsDec -d <input.avs> [<output.raw>]
         AvsDec -d <input.avs> - > <output.raw>
 
         [-i] Show wav file header info
