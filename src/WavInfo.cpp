@@ -17,11 +17,10 @@ int WavInfo(const _TCHAR *wavFilePath)
 
         _ftprintf(output, _T("File:\t\t%s\n"), wavFilePath);
 
-        WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
+        auto h = WavFileInfo::ReadFileHeader(fstream);
         h->Print(output);
 
         fclose(fstream);
-        delete h;
     }
     catch (TCHAR *error)
     {
