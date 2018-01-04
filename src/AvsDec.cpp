@@ -13,7 +13,7 @@ int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
     char *avsFilePathBuffer = (char *)malloc(nBufferSize);
     wcstombs_s(&i, avsFilePathBuffer, nBufferSize, avsFilePath, nBufferSize);
 #else
-    char *avsFilePathBuffer = avsFilePath;
+    const char *avsFilePathBuffer = avsFilePath;
 #endif
 
     CAvs2Raw decoderAVS;
