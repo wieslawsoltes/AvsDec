@@ -6,6 +6,9 @@
 #include <tchar.h>
 #include <Guiddef.h>
 
+#include <memory>
+using namespace std;
+
 // Multi-channel WAV file mask.
 enum WavChannelMask : unsigned int
 {
@@ -143,9 +146,9 @@ private:
     static int fpeek(FILE *fs);
 public:
     // Read WAV file header.
-    static WavFileHeader * ReadFileHeader(FILE *fs);
+    static unique_ptr<WavFileHeader> ReadFileHeader(FILE *fs);
     // Write WAV file header.
-    static void WriteFileHeader(FILE *fs, WavFileHeader *h);
+    static void WriteFileHeader(FILE *fs, const WavFileHeader *h);
     // Get mono WAV file header from multi-channel WAV file.
-    static WavFileHeader * GetMonoWavFileHeader(WavFileHeader *h);
+    static unique_ptr<WavFileHeader> GetMonoWavFileHeader(const WavFileHeader *h);
 };

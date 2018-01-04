@@ -1,4 +1,6 @@
 ﻿#include "WavSplit.h"
+#include <memory>
+using namespace std;
 
 __int64 GetFileSize(FILE *fp)
 {
@@ -46,7 +48,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             _ftprintf(log, _T("File size:\t%I64d\n"), nFileSize);
         }
 
-        WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
+        auto h = WavFileInfo::ReadFileHeader(fstream);
         h->Print(log);
         _ftprintf(log, _T("\n"));
 
@@ -55,12 +57,11 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         countBytes += h->HeaderSize;
 
-        _TCHAR** outputFileNames;
-        outputFileNames = new _TCHAR*[h->NumChannels];
+        auto outputFileNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            outputFileNames[i] = new _TCHAR[_MAX_PATH];
+            outputFileNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
 
-        WavChannel *channels = new WavChannel[h->NumChannels];
+        auto channels = make_unique<WavChannel[]>(h->NumChannels);
         int countChannels = 0;
 
         _TCHAR inputDrive[_MAX_DRIVE];
@@ -71,31 +72,30 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         if (isInputPipe == false)
             _tsplitpath_s(wavFilePath, inputDrive, inputDir, inputName, inputExt);
 
-        _TCHAR** channelLongNames;
-        channelLongNames = new _TCHAR*[h->NumChannels];
+        auto channelLongNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            channelLongNames[i] = new _TCHAR[64];
+            channelLongNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
 
-        _TCHAR** channelShortNames;
-        channelShortNames = new _TCHAR*[h->NumChannels];
+        auto channelShortNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            channelShortNames[i] = new _TCHAR[32];
+            channelShortNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
 
         if (h->IsExtensible == false)
         {
             for (int c = 0; c < h->NumChannels; c++)
             {
-                _stprintf_s(channelLongNames[c], 64, _T("Channel%d\0"), c + 1);
-                _stprintf_s(channelShortNames[c], 32, _T("CH%d\0"), c + 1);
-                WavChannel ch(channelLongNames[c], channelShortNames[c], WavChannelMask::NONE);
-                channels[c] = ch;
+                _stprintf_s(channelLongNames[c].get(), 64, _T("Channel%d\0"), c + 1);
+                _stprintf_s(channelShortNames[c].get(), 32, _T("CH%d\0"), c + 1);
+                channels[c].LongName = channelLongNames[c].get();
+                channels[c].ShortName = channelShortNames[c].get();
+                channels[c].Mask = WavChannelMask::NONE;
             }
         }
         else
         {
             for (int c = 0; c < WavFileHeader::nWavMultiChannelTypes; c++)
             {
-                WavChannel &ch = WavFileHeader::WavMultiChannelTypes[c];
+                auto &ch = WavFileHeader::WavMultiChannelTypes[c];
                 if ((ch.Mask & h->ChannelMask) != 0)
                 {
                     channels[countChannels++] = ch;
@@ -112,15 +112,15 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             {
                 _stprintf_s(fileNameBuffer, _MAX_FNAME, _T("%s\0"), channels[p].ShortName);
                 _tmakepath_s(outputFileNameNuffer, nullptr, outputPath, fileNameBuffer, _T("wav"));
-                _stprintf_s(outputFileNames[p], _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
-                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p]);
+                _stprintf_s(outputFileNames[p].get(), _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
+                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p].get());
             }
             else
             {
                 _stprintf_s(fileNameBuffer, _MAX_FNAME, _T("%s.%s\0"), inputName, channels[p].ShortName);
                 _tmakepath_s(outputFileNameNuffer, nullptr, outputPath, fileNameBuffer, inputExt);
-                _stprintf_s(outputFileNames[p], _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
-                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p]);
+                _stprintf_s(outputFileNames[p].get(), _MAX_PATH, _T("%s\0"), outputFileNameNuffer);
+                _ftprintf(log, _T("Output[%d]:\t%s\n"), p, outputFileNames[p].get());
             }
         }
 
@@ -129,19 +129,20 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         uint32_t channelBufferSize = h->ByteRate / h->NumChannels;
         uint16_t copySize = h->BlockAlign / h->NumChannels;
 
-        unsigned char* buffer = new unsigned char[bufferSize];
-        unsigned char** channelBuffer = new unsigned char*[h->NumChannels];
-        FILE** outputFiles = new FILE*[h->NumChannels];
-        WavFileHeader* mh = WavFileInfo::GetMonoWavFileHeader(h);
+        auto buffer = make_unique<unsigned char[]>(bufferSize);
+
+        auto channelBuffer = make_unique<unique_ptr<unsigned char[]>[]>(h->NumChannels);
+        for (int i = 0; i < h->NumChannels; ++i)
+            channelBuffer[i] = make_unique<unsigned char[]>(channelBufferSize);
+
+        auto outputFiles = make_unique<FILE*[]>(h->NumChannels);
+        auto count = make_unique<int[]>(h->NumChannels);
+
+        auto mh = WavFileInfo::GetMonoWavFileHeader(h.get());
 
         for (int c = 0; c < h->NumChannels; c++)
         {
-            channelBuffer[c] = new unsigned char[channelBufferSize];
-        }
-
-        for (int c = 0; c < h->NumChannels; c++)
-        {
-            errno_t error = _tfopen_s(&outputFiles[c], outputFileNames[c], _T("wb"));
+            errno_t error = _tfopen_s(&outputFiles[c], outputFileNames[c].get(), _T("wb"));
             if (error != 0)
             {
                 _ftprintf(log, _T("Failed to create output file."));
@@ -152,14 +153,12 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         for (int c = 0; c < h->NumChannels; c++)
         {
-            WavFileInfo::WriteFileHeader(outputFiles[c], mh);
+            WavFileInfo::WriteFileHeader(outputFiles[c], mh.get());
         }
-
-        int *count = new int[h->NumChannels];
 
         for (uint32_t i = 0; i < dataSize; i += bufferSize)
         {
-            size_t n = fread(buffer, sizeof(unsigned char), bufferSize, fstream);
+            size_t n = fread(buffer.get(), sizeof(unsigned char), bufferSize, fstream);
             if (n > 0)
             {
                 for (uint16_t c = 0; c < h->NumChannels; c++)
@@ -178,7 +177,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
                 for (uint16_t c = 0; c < h->NumChannels; c++)
                 {
-                    fwrite(channelBuffer[c], sizeof(unsigned char), count[c], outputFiles[c]);
+                    fwrite(channelBuffer[c].get(), sizeof(unsigned char), count[c], outputFiles[c]);
                 }
 
                 countBytes += n;
@@ -194,43 +193,13 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         nResult = 0;
 
-        delete[] count;
-
     cleanup:
-        for (int i = 0; i < h->NumChannels; ++i)
-            delete[] outputFileNames[i];
-        delete[] outputFileNames;
-
-        delete[] channels;
 
         for (int c = 0; c < h->NumChannels; c++)
-        {
-            fflush(outputFiles[c]);
             fclose(outputFiles[c]);
-        }
-
-        for (int i = 0; i < h->NumChannels; ++i)
-            delete[] channelLongNames[i];
-        delete[] channelLongNames;
-
-        for (int i = 0; i < h->NumChannels; ++i)
-            delete[] channelShortNames[i];
-        delete[] channelShortNames;
-
-        delete[] buffer;
-
-        for (int i = 0; i < h->NumChannels; ++i)
-            delete[] channelBuffer[i];
-        delete[] channelBuffer;
-
-        delete[] outputFiles;
-
-        delete mh;
 
         if (isInputPipe == false)
             fclose(fstream);
-
-        delete h;
     }
     catch (TCHAR *error)
     {
