@@ -2,7 +2,8 @@
 
 int WavInfo(const _TCHAR *wavFilePath)
 {
-    FILE *log = stdout;
+    FILE *log = stderr;
+    FILE *output = stdout;
 
     try
     {
@@ -14,10 +15,10 @@ int WavInfo(const _TCHAR *wavFilePath)
             return -1;
         }
 
-        _ftprintf(log, _T("File:\t\t%s\n"), wavFilePath);
+        _ftprintf(output, _T("File:\t\t%s\n"), wavFilePath);
 
         WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
-        h->Print(log);
+        h->Print(output);
 
         fclose(fstream);
         delete h;
