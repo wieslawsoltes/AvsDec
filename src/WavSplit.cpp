@@ -1,12 +1,4 @@
-﻿#define WIN32_LEAN_AND_MEAN
-#include "targetver.h"
-#include <windows.h>
-#include <stdlib.h> 
-#include <stdio.h>
-#include <tchar.h>
-#include <fcntl.h>
-#include <io.h>
-#include "WavFile.h"
+﻿#include "WavSplit.h"
 
 __int64 GetFileSize(FILE *fp)
 {

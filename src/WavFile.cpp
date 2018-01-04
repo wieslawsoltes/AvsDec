@@ -1,6 +1,4 @@
-﻿#pragma once
-
-#include "WavFile.h"
+﻿#include "WavFile.h"
 
 WavChannel::WavChannel()
 {
