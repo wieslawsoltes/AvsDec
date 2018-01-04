@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="avisynth\src\core\avisynth.h">
       <Filter>Header Files\Avisynth</Filter>
     </ClInclude>

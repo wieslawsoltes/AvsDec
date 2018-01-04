@@ -1,10 +1,10 @@
 ﻿#define WIN32_LEAN_AND_MEAN
-#include "version.h"
-#include "targetver.h"
+#include <SDKDDKVer.h>
 #include <windows.h>
 #include <stdlib.h>  
 #include <stdio.h>
 #include <tchar.h>
+#include "version.h"
 #include "AvsDec.h"
 #include "WavInfo.h"
 #include "WavSplit.h"
