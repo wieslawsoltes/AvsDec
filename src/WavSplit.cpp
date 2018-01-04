@@ -73,7 +73,6 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         if (isInputPipe == false)
             _tsplitpath_s(wavFilePath, inputDrive, inputDir, inputName, inputExt);
 
-
         auto channelLongNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
             channelLongNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
