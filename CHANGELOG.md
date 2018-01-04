@@ -2,7 +2,7 @@
 
 ### Version 2.2
 
-- Using unique_ptr for memory management
+- Using unique_ptr for memory management.
 
 ### Version 2.1
 
