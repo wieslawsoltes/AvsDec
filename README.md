@@ -31,6 +31,19 @@ Minimum supported Linux version is Ubutnu 16.10 (using Wine 2.0).
 
 AvsDec is an audio files conversion software for decoding avisynth audio streams to raw audio files and for spliting multi-channel WAV files into single channel WAV files.
 
+## Features
+
+* Decode avisynth audio stream to raw audio file.
+* Show wav file header info.
+* Split multi-channel WAV file into single channel WAV files.
+* Support for pipe output or input whenever possible.
+* Full UNICODE character set support.
+* Full Multibyte Character Set (MBCS) character set support.
+* Full Windows 32-bit and 64-bit support.
+* Works under Windows XP Service Pack 3 (SP3) for x86.
+* Works under Windows XP Service Pack 2 (SP2) for x64.
+* Open-source, fast, written in C++.
+
 ## Usage
 
 ```
