@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+### Version 2.2
+
+- Use unique_ptr for memory management
+
 ### Version 2.1
 
 - Added input pipes support for WavSplit.
