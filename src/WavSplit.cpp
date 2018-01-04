@@ -196,10 +196,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
     cleanup:
 
         for (int c = 0; c < h->NumChannels; c++)
-        {
-            fflush(outputFiles[c]);
             fclose(outputFiles[c]);
-        }
 
         if (isInputPipe == false)
             fclose(fstream);
