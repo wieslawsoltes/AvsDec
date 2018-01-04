@@ -15,7 +15,8 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
     FILE *log = stderr;
     FILE *pipe = stdin;
 
-    bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
+    int nResult = -1;
+    const bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
 
     try
     {

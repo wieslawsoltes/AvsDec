@@ -5,10 +5,10 @@ int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
     FILE *log = stderr;
     FILE *pipe = stdout;
 
-    bool isOutputPipe = (_tcslen(rawFilePath) == 1) && (rawFilePath[0] == '-');
+    const bool isOutputPipe = (_tcslen(rawFilePath) == 1) && (rawFilePath[0] == '-');
 
 #ifdef UNICODE
-    size_t nBufferSize = _MAX_PATH;
+    const size_t nBufferSize = _MAX_PATH;
     size_t i;
     char *avsFilePathBuffer = (char *)malloc(nBufferSize);
     wcstombs_s(&i, avsFilePathBuffer, nBufferSize, avsFilePath, nBufferSize);

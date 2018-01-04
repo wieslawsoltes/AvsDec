@@ -63,8 +63,8 @@ int _tmain(int argc, _TCHAR* argv[])
         return -1;
     }
 
-    _TCHAR *option = argv[1];
-    size_t lenOption = _tcslen(option);
+    const _TCHAR *option = argv[1];
+    const size_t lenOption = _tcslen(option);
     if (lenOption != 2)
     {
         Help(stderr);
@@ -73,14 +73,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
     if (_tcsnccmp(option, _T("-d"), 2) == 0 && argc == 4)
     {
-        _TCHAR *avsFilePath = argv[2];
-        _TCHAR *rawFilePath = argv[3];
+        const _TCHAR *avsFilePath = argv[2];
+        const _TCHAR *rawFilePath = argv[3];
         return AvsDec(avsFilePath, rawFilePath);
     }
 
     if (_tcsnccmp(option, _T("-i"), 2) == 0 && argc == 3)
     {
-        _TCHAR *wavFilePath = argv[2];
+        const _TCHAR *wavFilePath = argv[2];
         return WavInfo(wavFilePath);
     }
 
@@ -88,8 +88,8 @@ int _tmain(int argc, _TCHAR* argv[])
     {
         if (argc == 3)
         {
-            _TCHAR *wavFilePath = argv[2];
-            bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
+            const _TCHAR *wavFilePath = argv[2];
+            const bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
 
             if (isInputPipe == false)
             {
@@ -112,12 +112,12 @@ int _tmain(int argc, _TCHAR* argv[])
         }
         else
         {
-            _TCHAR *wavFilePath = argv[2];
-            bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
+            const _TCHAR *wavFilePath = argv[2];
+            const bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
 
             if (isInputPipe == false)
             {
-                _TCHAR *outputPath = argv[3];
+                const _TCHAR *outputPath = argv[3];
                 _TCHAR fullwavFilePath[_MAX_PATH];
                 _TCHAR fullOutputPath[_MAX_PATH];
                 _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
@@ -127,7 +127,7 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             else
             {
-                _TCHAR *outputPath = argv[3];
+                const _TCHAR *outputPath = argv[3];
                 _TCHAR fullOutputPath[_MAX_PATH];
                 _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
 
