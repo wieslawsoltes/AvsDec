@@ -45,7 +45,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             nFileSize = GetFileSize(fstream);
             _ftprintf(log, _T("File size:\t%I64d\n"), nFileSize);
         }
- 
+
         WavFileHeader *h = WavFileInfo::ReadFileHeader(fstream);
         h->Print(log);
         _ftprintf(log, _T("\n"));
@@ -196,7 +196,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         delete[] count;
 
-cleanup:
+    cleanup:
         for (int i = 0; i < h->NumChannels; ++i)
             delete[] outputFileNames[i];
         delete[] outputFileNames;
