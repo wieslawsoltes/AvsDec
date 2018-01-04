@@ -3,6 +3,7 @@
 ### Version 2.1
 
 - Added input pipes support for WavSplit.
+- Added multibyte character set (MBCS) support.
 
 ### Version 2.0
 
