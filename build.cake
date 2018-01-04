@@ -75,6 +75,7 @@ var packageBinariesAction = new Action<string,string> ((configuration, platform)
     var exeFile = File(path + "AvsDec.exe");
     CleanDirectory(outputDir);
     CopyFileToDirectory(File("README.md"), outputDir);
+    CopyFileToDirectory(File("CHANGELOG.md"), outputDir);
     CopyFileToDirectory(File("LICENSE.TXT"), outputDir);
     CopyFileToDirectory(exeFile, outputDir);
     Zip(outputDir, outputZip);
