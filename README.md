@@ -70,6 +70,8 @@ option:
 
 To report issues please use [issues tracker](https://github.com/wieslawsoltes/AvsDec/issues).
 
+For more informations and help please visit [this forum thread](http://forum.doom9.org/showthread.php?t=175155).
+
 ## Sources
 
 Sources are available in the [git source code repository](https://github.com/wieslawsoltes/AvsDec/).
