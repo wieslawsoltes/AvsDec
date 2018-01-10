@@ -12,10 +12,10 @@ Decode avisynth audio stream to raw audio file and split multi-channel WAV files
 
 | Platform           | Character Set  | Version   | Download                                                                                                                       |
 |--------------------|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------|
-| Windows 32-bit     | Unicode        | 2.2       | [AvsDec-2.2-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.2/AvsDec-2.2-Win32-UNICODE.zip)     |
-| Windows 64-bit     | Unicode        | 2.2       | [AvsDec-2.2-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.2/AvsDec-2.2-x64-UNICODE.zip)         |
-| Windows 32-bit     | MBCS           | 2.2       | [AvsDec-2.2-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.2/AvsDec-2.2-Win32-MBCS.zip)           |
-| Windows 64-bit     | MBCS           | 2.2       | [AvsDec-2.2-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.2/AvsDec-2.2-x64-MBCS.zip)               |
+| Windows 32-bit     | Unicode        | 2.3       | [AvsDec-2.3-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.3/AvsDec-2.3-Win32-UNICODE.zip)     |
+| Windows 64-bit     | Unicode        | 2.3       | [AvsDec-2.3-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.3/AvsDec-2.3-x64-UNICODE.zip)         |
+| Windows 32-bit     | MBCS           | 2.3       | [AvsDec-2.3-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.3/AvsDec-2.3-Win32-MBCS.zip)           |
+| Windows 64-bit     | MBCS           | 2.3       | [AvsDec-2.3-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.3/AvsDec-2.3-x64-MBCS.zip)               |
 
 ## System requirements
 

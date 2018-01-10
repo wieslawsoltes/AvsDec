@@ -1,5 +1,10 @@
 ﻿# Changelog
 
+### Version 2.3
+
+Fixed progress output.
+Added done message.
+
 ### Version 2.2
 
 - Using unique_ptr for memory management.
