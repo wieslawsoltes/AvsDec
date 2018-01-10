@@ -2,8 +2,8 @@
 
 ### Version 2.3
 
-Fixed progress output.
-Added done message.
+- Fixed progress output.
+- Added done message.
 
 ### Version 2.2
 
