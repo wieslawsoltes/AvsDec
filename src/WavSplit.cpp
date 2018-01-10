@@ -184,7 +184,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
                 if (isInputPipe == false)
                 {
-                    nProgress = (int)(((countBytes / nFileSize) * 100.0));
+                    nProgress = (int)(((double)countBytes / (double)nFileSize) * 100);
                     __int64 nCurPos = _ftelli64(fstream);
                     _ftprintf(log, _T("\rProgress: %d%% (%I64d/%I64d)"), nProgress, nCurPos, nFileSize);
                 }
