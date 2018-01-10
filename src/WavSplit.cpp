@@ -192,6 +192,7 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         }
 
         nResult = 0;
+		_ftprintf(log, _T("\nDone."));
 
     cleanup:
 
@@ -203,12 +204,12 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
     }
     catch (TCHAR *error)
     {
-        _ftprintf(log, _T("Failed to split file: %s"), error);
+        _ftprintf(log, _T("\nFailed to split file: %s"), error);
         nResult = -1;
     }
     catch (...)
     {
-        _ftprintf(log, _T("Failed to split file."));
+        _ftprintf(log, _T("\nFailed to split file."));
         nResult = -1;
     }
 

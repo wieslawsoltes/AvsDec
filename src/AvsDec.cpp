@@ -109,5 +109,6 @@ int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath)
 
     decoderAVS.CloseAvisynth();
 
+	_ftprintf(log, _T("\nDone."));
     return 0;
 }

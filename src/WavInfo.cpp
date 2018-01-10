@@ -33,5 +33,6 @@ int WavInfo(const _TCHAR *wavFilePath)
         return -1;
     }
 
+	_ftprintf(log, _T("\nDone."));
     return 0;
 }
