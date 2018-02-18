@@ -8,4 +8,7 @@
 #include <tchar.h>
 #include "Avs2Raw.h"
 
+#define PRODUCTNAME     "AvsDec"
+#define COPYRIGHT       "Copyright (c) Wieslaw Soltes. All rights reserved."
+
 int AvsDec(const _TCHAR *avsFilePath, const _TCHAR *rawFilePath);

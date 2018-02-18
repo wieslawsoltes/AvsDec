@@ -203,6 +203,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -228,6 +229,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -252,6 +254,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -274,6 +277,7 @@
       <LanguageStandard>stdcpp17</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -302,6 +306,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -334,6 +339,7 @@
       <DebugInformationFormat>
       </DebugInformationFormat>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -364,6 +370,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DebugInformationFormat />
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -392,6 +399,7 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <DebugInformationFormat />
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalIncludeDirectories>..\Avs2Raw</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -404,23 +412,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="avisynth64\src\core\avisynth.h" />
-    <ClInclude Include="avisynth64\src\internal.h" />
-    <ClInclude Include="avisynth\src\core\avisynth.h" />
-    <ClInclude Include="avisynth\src\internal.h" />
-    <ClInclude Include="Avs2Raw.h" />
+    <ClInclude Include="..\Avs2Raw\avisynth64\src\core\avisynth.h" />
+    <ClInclude Include="..\Avs2Raw\avisynth64\src\internal.h" />
+    <ClInclude Include="..\Avs2Raw\avisynth\src\core\avisynth.h" />
+    <ClInclude Include="..\Avs2Raw\avisynth\src\internal.h" />
+    <ClInclude Include="..\Avs2Raw\Avs2Raw.h" />
+    <ClInclude Include="..\version.h" />
     <ClInclude Include="AvsDec.h" />
-    <ClInclude Include="version.h" />
-    <ClInclude Include="WavFile.h" />
-    <ClInclude Include="WavInfo.h" />
-    <ClInclude Include="WavSplit.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AvsDec.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="WavFile.cpp" />
-    <ClCompile Include="WavInfo.cpp" />
-    <ClCompile Include="WavSplit.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
