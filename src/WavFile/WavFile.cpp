@@ -249,7 +249,7 @@ std::unique_ptr<WavFileHeader> WavFileInfo::ReadFileHeader(FILE *fs)
                     h->HeaderSize += 4;
 
                     // char chunkName[4] = chunk;
-                    auto chunkData = make_unique<unsigned char[]>(chunkSize);
+                    auto chunkData = std::make_unique<unsigned char[]>(chunkSize);
                     fread(chunkData.get(), sizeof(unsigned char), chunkSize, fs);
 
                     h->HeaderSize += (int)chunkSize;
