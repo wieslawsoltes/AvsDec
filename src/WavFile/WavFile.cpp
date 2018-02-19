@@ -15,13 +15,13 @@ WavChannel::~WavChannel()
 {
 }
 
-WavChannel WavFileHeader::WavChannelTypes[WavFileHeader::nWavChannelTypes] = {
+std::vector<WavChannel> WavFileHeader::WavChannelTypes = {
     { _T("Mono"),                    _T("M"),   WavChannelMask::NONE },
     { _T("Left"),                    _T("L"),   WavChannelMask::NONE },
     { _T("Right"),                   _T("R"),   WavChannelMask::NONE }
 };
 
-WavChannel WavFileHeader::WavMultiChannelTypes[WavFileHeader::nWavMultiChannelTypes] = {
+std::vector<WavChannel> WavFileHeader::WavMultiChannelTypes = {
     { _T("Front Left"),              _T("FL"),   WavChannelMask::SPEAKER_FRONT_LEFT               },
     { _T("Front Right"),             _T("FR"),   WavChannelMask::SPEAKER_FRONT_RIGHT              },
     { _T("Front Center"),            _T("FC"),   WavChannelMask::SPEAKER_FRONT_CENTER             },
@@ -150,9 +150,9 @@ int WavFileInfo::fpeek(FILE *fs)
     return c;
 }
 
-unique_ptr<WavFileHeader> WavFileInfo::ReadFileHeader(FILE *fs)
+std::unique_ptr<WavFileHeader> WavFileInfo::ReadFileHeader(FILE *fs)
 {
-    auto h = make_unique<WavFileHeader>();
+    auto h = std::make_unique<WavFileHeader>();
 
     h->HeaderSize = 0;
 
@@ -249,7 +249,7 @@ unique_ptr<WavFileHeader> WavFileInfo::ReadFileHeader(FILE *fs)
                     h->HeaderSize += 4;
 
                     // char chunkName[4] = chunk;
-                    auto chunkData = make_unique<unsigned char[]>(chunkSize);
+                    auto chunkData = std::make_unique<unsigned char[]>(chunkSize);
                     fread(chunkData.get(), sizeof(unsigned char), chunkSize, fs);
 
                     h->HeaderSize += (int)chunkSize;
@@ -319,10 +319,10 @@ void WavFileInfo::WriteFileHeader(FILE *fs, const WavFileHeader *h)
     }
 }
 
-unique_ptr<WavFileHeader> WavFileInfo::GetMonoWavFileHeader(const WavFileHeader *h)
+std::unique_ptr<WavFileHeader> WavFileInfo::GetMonoWavFileHeader(const WavFileHeader *h)
 {
     // Each mono output file has the same header.
-    auto mh = make_unique<WavFileHeader>();
+    auto mh = std::make_unique<WavFileHeader>();
 
     // WAVE
     mh->ChunkID = (uint32_t)0x46464952; // 0x46464952, "RIFF"

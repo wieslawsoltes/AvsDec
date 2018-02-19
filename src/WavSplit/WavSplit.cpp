@@ -1,6 +1,4 @@
 ﻿#include "WavSplit.h"
-#include <memory>
-using namespace std;
 
 __int64 GetFileSize(FILE *fp)
 {
@@ -57,11 +55,11 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
 
         countBytes += h->HeaderSize;
 
-        auto outputFileNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
+        auto outputFileNames = std::make_unique<std::unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            outputFileNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
+            outputFileNames[i] = std::make_unique<_TCHAR[]>(_MAX_PATH);
 
-        auto channels = make_unique<WavChannel[]>(h->NumChannels);
+        auto channels = std::make_unique<WavChannel[]>(h->NumChannels);
         int countChannels = 0;
 
         _TCHAR inputDrive[_MAX_DRIVE];
@@ -72,13 +70,13 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         if (isInputPipe == false)
             _tsplitpath_s(wavFilePath, inputDrive, inputDir, inputName, inputExt);
 
-        auto channelLongNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
+        auto channelLongNames = std::make_unique<std::unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            channelLongNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
+            channelLongNames[i] = std::make_unique<_TCHAR[]>(_MAX_PATH);
 
-        auto channelShortNames = make_unique<unique_ptr<_TCHAR[]>[]>(h->NumChannels);
+        auto channelShortNames = std::make_unique<std::unique_ptr<_TCHAR[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            channelShortNames[i] = make_unique<_TCHAR[]>(_MAX_PATH);
+            channelShortNames[i] = std::make_unique<_TCHAR[]>(_MAX_PATH);
 
         if (h->IsExtensible == false)
         {
@@ -93,10 +91,12 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         }
         else
         {
-            for (int c = 0; c < WavFileHeader::nWavMultiChannelTypes; c++)
+            int nWavMultiChannelTypes = (int)WavFileHeader::WavMultiChannelTypes.size();
+            for (int c = 0; c < nWavMultiChannelTypes; c++)
             {
                 auto &ch = WavFileHeader::WavMultiChannelTypes[c];
-                if ((ch.Mask & h->ChannelMask) != 0)
+                uint32_t mask = static_cast<uint32_t>(ch.Mask);
+                if ((mask & h->ChannelMask) != 0)
                 {
                     channels[countChannels++] = ch;
                 }
@@ -129,14 +129,14 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
         uint32_t channelBufferSize = h->ByteRate / h->NumChannels;
         uint16_t copySize = h->BlockAlign / h->NumChannels;
 
-        auto buffer = make_unique<unsigned char[]>(bufferSize);
+        auto buffer = std::make_unique<unsigned char[]>(bufferSize);
 
-        auto channelBuffer = make_unique<unique_ptr<unsigned char[]>[]>(h->NumChannels);
+        auto channelBuffer = std::make_unique<std::unique_ptr<unsigned char[]>[]>(h->NumChannels);
         for (int i = 0; i < h->NumChannels; ++i)
-            channelBuffer[i] = make_unique<unsigned char[]>(channelBufferSize);
+            channelBuffer[i] = std::make_unique<unsigned char[]>(channelBufferSize);
 
-        auto outputFiles = make_unique<FILE*[]>(h->NumChannels);
-        auto count = make_unique<int[]>(h->NumChannels);
+        auto outputFiles = std::make_unique<FILE*[]>(h->NumChannels);
+        auto count = std::make_unique<int[]>(h->NumChannels);
 
         auto mh = WavFileInfo::GetMonoWavFileHeader(h.get());
 

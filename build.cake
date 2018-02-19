@@ -66,13 +66,43 @@ var buildSolutionAction = new Action<string,string,string> ((solution, configura
         settings.SetVerbosity(Verbosity.Minimal); });
 });
 
-var packageBinariesAction = new Action<string,string> ((configuration, platform) => 
+var packageBinariesAvsDecAction = new Action<string,string> ((configuration, platform) => 
 {
-    var path = "./src/bin/" + configuration + "/" + platform + "/";
+    var path = "./src/AvsDec/bin/" + configuration + "/" + platform + "/";
     var output = "AvsDec-" + version + suffix + "-" + platform + (configuration.Contains("Release") ? ("-" + configuration.Replace("Release", "")) : ("-" + configuration));
     var outputDir = artifactsDir.Combine(output);
     var outputZip = artifactsDir.CombineWithFilePath(output + ".zip");
     var exeFile = File(path + "AvsDec.exe");
+    CleanDirectory(outputDir);
+    CopyFileToDirectory(File("README.md"), outputDir);
+    CopyFileToDirectory(File("CHANGELOG.md"), outputDir);
+    CopyFileToDirectory(File("LICENSE.TXT"), outputDir);
+    CopyFileToDirectory(exeFile, outputDir);
+    Zip(outputDir, outputZip);
+});
+
+var packageBinariesWavInfoAction = new Action<string,string> ((configuration, platform) => 
+{
+    var path = "./src/WavInfo/bin/" + configuration + "/" + platform + "/";
+    var output = "WavInfo-" + version + suffix + "-" + platform + (configuration.Contains("Release") ? ("-" + configuration.Replace("Release", "")) : ("-" + configuration));
+    var outputDir = artifactsDir.Combine(output);
+    var outputZip = artifactsDir.CombineWithFilePath(output + ".zip");
+    var exeFile = File(path + "WavInfo.exe");
+    CleanDirectory(outputDir);
+    CopyFileToDirectory(File("README.md"), outputDir);
+    CopyFileToDirectory(File("CHANGELOG.md"), outputDir);
+    CopyFileToDirectory(File("LICENSE.TXT"), outputDir);
+    CopyFileToDirectory(exeFile, outputDir);
+    Zip(outputDir, outputZip);
+});
+
+var packageBinariesWavSplitAction = new Action<string,string> ((configuration, platform) => 
+{
+    var path = "./src/WavSplit/bin/" + configuration + "/" + platform + "/";
+    var output = "WavSplit-" + version + suffix + "-" + platform + (configuration.Contains("Release") ? ("-" + configuration.Replace("Release", "")) : ("-" + configuration));
+    var outputDir = artifactsDir.Combine(output);
+    var outputZip = artifactsDir.CombineWithFilePath(output + ".zip");
+    var exeFile = File(path + "WavSplit.exe");
     CleanDirectory(outputDir);
     CopyFileToDirectory(File("README.md"), outputDir);
     CopyFileToDirectory(File("CHANGELOG.md"), outputDir);
@@ -104,7 +134,12 @@ Task("Package-Binaries")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    configurations.ForEach(configuration => platforms.ForEach(platform => packageBinariesAction(configuration, platform)));
+    configurations.ForEach(configuration => platforms.ForEach(platform => 
+    {
+        packageBinariesAvsDecAction(configuration, platform);
+        packageBinariesWavInfoAction(configuration, platform);
+        packageBinariesWavSplitAction(configuration, platform);
+    }));
 });
 
 ///////////////////////////////////////////////////////////////////////////////

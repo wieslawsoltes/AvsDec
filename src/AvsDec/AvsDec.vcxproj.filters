@@ -21,34 +21,25 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="avisynth\src\core\avisynth.h">
-      <Filter>Header Files\Avisynth</Filter>
-    </ClInclude>
-    <ClInclude Include="avisynth\src\internal.h">
-      <Filter>Header Files\Avisynth</Filter>
-    </ClInclude>
-    <ClInclude Include="avisynth64\src\core\avisynth.h">
-      <Filter>Header Files\Avisynth64</Filter>
-    </ClInclude>
-    <ClInclude Include="avisynth64\src\internal.h">
-      <Filter>Header Files\Avisynth64</Filter>
-    </ClInclude>
-    <ClInclude Include="Avs2Raw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WavFile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AvsDec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WavInfo.h">
+    <ClInclude Include="..\Avs2Raw\avisynth\src\core\avisynth.h">
+      <Filter>Header Files\Avisynth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Avs2Raw\avisynth64\src\core\avisynth.h">
+      <Filter>Header Files\Avisynth64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Avs2Raw\avisynth\src\internal.h">
+      <Filter>Header Files\Avisynth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Avs2Raw\avisynth64\src\internal.h">
+      <Filter>Header Files\Avisynth64</Filter>
+    </ClInclude>
+    <ClInclude Include="..\version.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WavSplit.h">
+    <ClInclude Include="..\Avs2Raw\Avs2Raw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -57,15 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WavInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WavSplit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WavFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

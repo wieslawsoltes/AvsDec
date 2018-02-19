@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+### Version 2.4
+
+- Split projects.
+
 ### Version 2.3
 
 - Fixed progress output.
