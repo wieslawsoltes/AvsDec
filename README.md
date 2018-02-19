@@ -21,17 +21,21 @@ Decode avisynth audio stream to raw audio file and split multi-channel WAV files
 
 ### WavInfo
 
-| Windows 32-bit     | Unicode        | 2.4       | [WavInfo-2.4-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-Win32-UNICODE.zip)     |
-| Windows 64-bit     | Unicode        | 2.4       | [WavInfo-2.4-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-x64-UNICODE.zip)         |
-| Windows 32-bit     | MBCS           | 2.4       | [WavInfo-2.4-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-Win32-MBCS.zip)           |
-| Windows 64-bit     | MBCS           | 2.4       | [WavInfo-2.4-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-x64-MBCS.zip)               |
+| Platform           | Character Set  | Version   | Download                                                                                                                       |
+|--------------------|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------|
+| Windows 32-bit     | Unicode        | 2.4       | [WavInfo-2.4-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-Win32-UNICODE.zip)   |
+| Windows 64-bit     | Unicode        | 2.4       | [WavInfo-2.4-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-x64-UNICODE.zip)       |
+| Windows 32-bit     | MBCS           | 2.4       | [WavInfo-2.4-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-Win32-MBCS.zip)         |
+| Windows 64-bit     | MBCS           | 2.4       | [WavInfo-2.4-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavInfo-2.4-x64-MBCS.zip)             |
 
 ### WavSplit
 
-| Windows 32-bit     | Unicode        | 2.4       | [WavSplit-2.4-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-Win32-UNICODE.zip)     |
-| Windows 64-bit     | Unicode        | 2.4       | [WavSplit-2.4-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-x64-UNICODE.zip)         |
-| Windows 32-bit     | MBCS           | 2.4       | [WavSplit-2.4-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-Win32-MBCS.zip)           |
-| Windows 64-bit     | MBCS           | 2.4       | [WavSplit-2.4-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-x64-MBCS.zip)               |
+| Platform           | Character Set  | Version   | Download                                                                                                                       |
+|--------------------|----------------|-----------|--------------------------------------------------------------------------------------------------------------------------------|
+| Windows 32-bit     | Unicode        | 2.4       | [WavSplit-2.4-Win32-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-Win32-UNICODE.zip) |
+| Windows 64-bit     | Unicode        | 2.4       | [WavSplit-2.4-x64-UNICODE.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-x64-UNICODE.zip)     |
+| Windows 32-bit     | MBCS           | 2.4       | [WavSplit-2.4-Win32-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-Win32-MBCS.zip)       |
+| Windows 64-bit     | MBCS           | 2.4       | [WavSplit-2.4-x64-MBCS.zip](https://github.com/wieslawsoltes/AvsDec/releases/download/2.4/WavSplit-2.4-x64-MBCS.zip)           |
 
 ## System requirements
 
