@@ -15,7 +15,7 @@ WavChannel::~WavChannel()
 {
 }
 
-std::vector<WavChannel> WavFileHeader::WavChannelType = {
+std::vector<WavChannel> WavFileHeader::WavChannelTypes = {
     { _T("Mono"),                    _T("M"),   WavChannelMask::NONE },
     { _T("Left"),                    _T("L"),   WavChannelMask::NONE },
     { _T("Right"),                   _T("R"),   WavChannelMask::NONE }
