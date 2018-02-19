@@ -59,10 +59,10 @@ public:
     // Wav channel short name.
     _TCHAR * ShortName;
     // Wav channel mask.
-    WavChannelMask Mask;
+    uint32_t Mask;
 public:
     WavChannel();
-    WavChannel(_TCHAR * longName, _TCHAR * shortName, WavChannelMask mask);
+    WavChannel(_TCHAR * longName, _TCHAR * shortName, uint32_t mask);
     virtual ~WavChannel();
 };
 
