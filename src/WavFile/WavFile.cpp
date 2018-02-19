@@ -4,7 +4,7 @@ WavChannel::WavChannel()
 {
 }
 
-WavChannel::WavChannel(_TCHAR * longName, _TCHAR * shortName, WavChannelMask mask)
+WavChannel::WavChannel(_TCHAR * longName, _TCHAR * shortName, uint32_t mask)
 {
     LongName = longName;
     ShortName = shortName;
