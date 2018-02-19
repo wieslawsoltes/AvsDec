@@ -1,13 +1,12 @@
 ﻿#pragma once
 
+#include <memory>
+#include <vector>
 #include <cstdint>
 #include <stdlib.h> 
 #include <stdio.h>
 #include <tchar.h>
 #include <Guiddef.h>
-
-#include <memory>
-using namespace std;
 
 // Multi-channel WAV file mask.
 enum WavChannelMask : unsigned int
@@ -121,14 +120,10 @@ public:
     /// Total samples.
     long TotalSamples;
 public:
-    // Number of channel types.
-    const static int nWavChannelTypes = 3;
     // Channel types.
-    static WavChannel WavChannelTypes[nWavChannelTypes];
-    // Number of multi-channel types.
-    const static int nWavMultiChannelTypes = 18;
+    static std::vector<WavChannel> WavChannelTypes;
     // Multi-channel types.
-    static WavChannel WavMultiChannelTypes[nWavMultiChannelTypes];
+    static std::vector<WavChannel> WavMultiChannelTypes;
     // WAVEFORMATEXTENSIBLE sub-formats
     // Sub-type PCM.
     static GUID SubTypePCM;
@@ -146,9 +141,9 @@ private:
     static int fpeek(FILE *fs);
 public:
     // Read WAV file header.
-    static unique_ptr<WavFileHeader> ReadFileHeader(FILE *fs);
+    static std::unique_ptr<WavFileHeader> ReadFileHeader(FILE *fs);
     // Write WAV file header.
     static void WriteFileHeader(FILE *fs, const WavFileHeader *h);
     // Get mono WAV file header from multi-channel WAV file.
-    static unique_ptr<WavFileHeader> GetMonoWavFileHeader(const WavFileHeader *h);
+    static std::unique_ptr<WavFileHeader> GetMonoWavFileHeader(const WavFileHeader *h);
 };
