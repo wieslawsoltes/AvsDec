@@ -95,7 +95,8 @@ int WavSplit(const _TCHAR *wavFilePath, const _TCHAR *outputPath)
             for (int c = 0; c < nWavMultiChannelTypes; c++)
             {
                 auto &ch = WavFileHeader::WavMultiChannelTypes[c];
-                if ((ch.Mask & h->ChannelMask) != 0)
+                uint32_t mask = static_cast<uint32_t>(ch.Mask);
+                if ((mask & h->ChannelMask) != 0)
                 {
                     channels[countChannels++] = ch;
                 }
