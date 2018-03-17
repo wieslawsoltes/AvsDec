@@ -1,11 +1,14 @@
 ﻿#define WIN32_LEAN_AND_MEAN
 #include <SDKDDKVer.h>
 #include <windows.h>
+#include <Shlwapi.h>
 #include <stdlib.h>  
 #include <stdio.h>
 #include <tchar.h>
 #include "version.h"
 #include "WavSplit.h"
+
+#pragma comment(lib, "Shlwapi.lib")
 
 void Info(FILE *log)
 {
@@ -91,22 +94,22 @@ int _tmain(int argc, _TCHAR* argv[])
             const _TCHAR *wavFilePath = argv[2];
             const bool isInputPipe = (_tcslen(wavFilePath) == 1) && (wavFilePath[0] == '-');
 
+            const _TCHAR trim[] = _T("\"\0");
+            _TCHAR outputPath[_MAX_PATH];
+            _TCHAR fullOutputPath[_MAX_PATH];
+            _tcsncpy_s(outputPath, argv[3], _tcsnlen(argv[3], _MAX_PATH));
+            ::StrTrim(outputPath, trim);
+            _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
+
             if (isInputPipe == false)
             {
-                const _TCHAR *outputPath = argv[3];
                 _TCHAR fullwavFilePath[_MAX_PATH];
-                _TCHAR fullOutputPath[_MAX_PATH];
                 _tfullpath(fullwavFilePath, wavFilePath, _MAX_PATH);
-                _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
 
                 return WavSplit(fullwavFilePath, fullOutputPath);
             }
             else
             {
-                const _TCHAR *outputPath = argv[3];
-                _TCHAR fullOutputPath[_MAX_PATH];
-                _tfullpath(fullOutputPath, outputPath, _MAX_PATH);
-
                 return WavSplit(wavFilePath, fullOutputPath);
             }
         }
