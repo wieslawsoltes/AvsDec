@@ -1,5 +1,9 @@
 ﻿# Changelog
 
+### Version 2.5
+
+- Fixed WavSplit output path.
+
 ### Version 2.4
 
 - Split projects.
