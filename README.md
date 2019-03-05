@@ -1,7 +1,5 @@
 # AvsDec
 
-[![Build status](https://ci.appveyor.com/api/projects/status/pe1bbn8xigcygoi3/branch/master?svg=true)](https://ci.appveyor.com/project/wieslawsoltes/avsdec/branch/master)
-
 [![Github All Releases](https://img.shields.io/github/downloads/wieslawsoltes/avsdec/total.svg)](https://github.com/wieslawsoltes/AvsDec/releases)
 [![GitHub Release](https://img.shields.io/github/release/wieslawsoltes/avsdec.svg)](https://github.com/wieslawsoltes/avsdec/releases/latest)
 [![Github Releases](https://img.shields.io/github/downloads/wieslawsoltes/avsdec/latest/total.svg)](https://github.com/wieslawsoltes/AvsDec/releases)
@@ -44,10 +42,6 @@ Minimum supported Windows version is Windows 7 SP1 or above, recommended is Wind
 Provided binaries should work under Windows XP Service Pack 3 (SP3) for x86, Windows XP Service Pack 2 (SP2) for x64.
 
 Minimum supported Linux version is Ubutnu 16.10 (using Wine 2.0).
-
-## CI Builds
-
-[Download](https://ci.appveyor.com/project/wieslawsoltes/avsdec/build/artifacts) bleeding edge builds from the CI server.
 
 ## About
 
